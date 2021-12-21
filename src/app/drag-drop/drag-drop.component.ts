@@ -3,7 +3,8 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatAccordion } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-drag-drop',
@@ -14,6 +15,8 @@ export class DragDropComponent implements OnInit {
   addNewTodoList: any;
   addNewDoingList: any;
   addNewDoneList: any;
+
+  @ViewChild(MatAccordion) accordion: MatAccordion | undefined;
 
   todo = [
     'Get to work',
@@ -30,6 +33,7 @@ export class DragDropComponent implements OnInit {
   addTodo = '';
   addDoing = '';
   addDone = '';
+  panelOpenState: boolean | any;
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -38,7 +42,7 @@ export class DragDropComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
-    } else {
+    } else  {
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -51,6 +55,31 @@ export class DragDropComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+  
+  closePanel() {
+    this.panelOpenState = false;
+  }
+
+  remove1(item1: string): void {
+    const index = this.todo.indexOf(item1);
+    if (index !== -1) {
+      this.todo.splice(index, 1);
+    }
+  }
+  
+  remove2(item2: string): void {
+    const index = this.doing.indexOf(item2);
+    if (index !== -1) {
+      this.doing.splice(index, 1);
+    }
+  }
+
+  remove3(item3: string): void {
+    const index = this.done.indexOf(item3);
+    if (index !== -1) {
+      this.done.splice(index, 1);
+    }
+  }
 
   addNewTodo() {
     this.todo.push(this.addTodo);
@@ -66,4 +95,6 @@ export class DragDropComponent implements OnInit {
     this.done.push(this.addDone);
     this.addDone = '';
   }
+
+  
 }

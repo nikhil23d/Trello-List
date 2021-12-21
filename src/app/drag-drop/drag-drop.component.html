@@ -1,120 +1,127 @@
-<div class="example-container">
-  <h2>To do</h2>
+<div class="container">
+  <div class="example-container">
+    <h2>To do</h2>
+    <!-- expansion pan -->
 
-  <div>
-    <mat-radio-group [(ngModel)]="addNewTodoList" name="addNewTodoList">
-      <mat-radio-button value="addNewTodoList-present">
-        <h6>Add To Do</h6></mat-radio-button
-      >
-    </mat-radio-group>
-    <div *ngIf="addNewTodoList === 'addNewTodoList-present'">
-      <input
-        appearance="fill"
-        matInput
-        type="text"
-        [(ngModel)]="addTodo"
-        (keyup.enter)="addNewTodo()"
-        class="form-control-lg text-center"
-        placeholder="Add To Do"
-      />
+    <mat-accordion class="example-headers-align">
+      <mat-expansion-panel hideToggle [expanded]="panelOpenState">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Add To Do Work </mat-panel-title>
+          <mat-icon class="icon">add</mat-icon>
+        </mat-expansion-panel-header>
+
+        <mat-form-field class="wrapper" appearance="outline">
+          <mat-label>Add</mat-label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="addTodo"
+            (keyup.enter)="addNewTodo()"
+            placeholder="Enter"
+          />
+        </mat-form-field>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <br />
+
+    <div
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="todo"
+      [cdkDropListConnectedTo]="[doingList, doneList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+      (click)="closePanel()"
+    >
+      <div class="example-box" *ngFor="let item1 of todo" cdkDrag>
+        {{ item1 }}
+         <mat-icon class="edit">mode_edit</mat-icon>
+        <mat-icon (click)="remove1(item1)" class="delete" >delete_outline</mat-icon >
+      </div>
     </div>
   </div>
 
-  <!-- <div>
-        <mat-radio-group [(ngModel)]="addNewTodoList " name="addNewTodoList">
-          
-          <mat-radio-button  value="addNewTodoList-present">
-              <h6>Add To Do </h6></mat-radio-button
-          >
-        </mat-radio-group>
-        <div *ngIf="addNewTodoList === 'addNewTodoList-present'">
-  
-          <input appearance="fill" matInput type="text" [(ngModel)]="addTodo" (keyup.enter)="addNewTodo()" class="form-control-lg text-center" placeholder="Add To Do">
-        </div>
-      </div> -->
+  <div class="example-container">
+    <h2>Doing</h2>
 
-  <br />
+    <mat-accordion class="example-headers-align">
+      <mat-expansion-panel hideToggle [expanded]="panelOpenState">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Add Doing Work </mat-panel-title>
+          <mat-icon class="icon">add</mat-icon>
+        </mat-expansion-panel-header>
 
-  <div
-    cdkDropList
-    #todoList="cdkDropList"
-    [cdkDropListData]="todo"
-    [cdkDropListConnectedTo]="[doingList, doneList]"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)"
-  >
-    <div class="example-box" *ngFor="let item of todo" cdkDrag>{{ item }}</div>
-  </div>
-</div>
+        <mat-form-field class="wrapper" appearance="outline">
+          <mat-label>Add</mat-label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="addDoing"
+            (keyup.enter)="addNewDoing()"
+            placeholder="Enter"
+          />
+        </mat-form-field>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <br />
 
-<div class="example-container">
-  <h2>Doing</h2>
-
-  <div>
-    <mat-radio-group [(ngModel)]="addNewDoingList" name="addNewDoingList">
-      <mat-radio-button value="addNewDoingList-present">
-        <h6>Add Doing</h6></mat-radio-button
-      >
-    </mat-radio-group>
-    <div *ngIf="addNewDoingList === 'addNewDoingList-present'">
-      <input
-        appearance="fill"
-        matInput
-        type="text"
-        [(ngModel)]="addDoing"
-        (keyup.enter)="addNewDoing()"
-        class="form-control-lg text-center"
-        placeholder="Add Doing"
-      />
+    <div
+      cdkDropList
+      #doingList="cdkDropList"
+      [cdkDropListData]="doing"
+      [cdkDropListConnectedTo]="[todoList, doneList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+      (click)="closePanel()"
+    >
+      <div class="example-box" *ngFor="let item2 of doing" cdkDrag>
+        {{ item2 }}
+        <a (click)="remove2(item2)" class="delete"  ><mat-icon  matChipRemove
+          >delete_outline</mat-icon
+        ></a>
+      </div>
     </div>
   </div>
 
-  <br />
+  <div class="example-container">
+    <h2>Done</h2>
 
-  <div
-    cdkDropList
-    #doingList="cdkDropList"
-    [cdkDropListData]="doing"
-    [cdkDropListConnectedTo]="[todoList, doneList]"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)"
-  >
-    <div class="example-box" *ngFor="let item of doing" cdkDrag>{{ item }}</div>
-  </div>
-</div>
+    <mat-accordion class="example-headers-align">
+      <mat-expansion-panel hideToggle [expanded]="panelOpenState">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Add Done Work </mat-panel-title>
+          <mat-icon class="icon">add</mat-icon>
+        </mat-expansion-panel-header>
 
-<div class="example-container">
-  <h2>Done</h2>
+        <mat-form-field class="wrapper" appearance="outline">
+          <mat-label>Add</mat-label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="addDone"
+            (keyup.enter)="addNewDone()"
+            placeholder="Enter"
+          />
+        </mat-form-field>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <br />
 
-  <div>
-    <mat-radio-group [(ngModel)]="addNewDoneList" name="addNewDoneList">
-      <mat-radio-button value="addNewDoneList-present">
-        <h6>Add Done</h6></mat-radio-button
-      >
-    </mat-radio-group>
-    <div *ngIf="addNewDoneList === 'addNewDoneList-present'">
-      <input
-        appearance="fill"
-        matInput
-        type="text"
-        [(ngModel)]="addDone"
-        (keyup.enter)="addNewDone()"
-        class="form-control-lg text-center"
-        placeholder="Add Done"
-      />
+    <div
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="done"
+      [cdkDropListConnectedTo]="[todoList, doingList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+      (click)="closePanel()"
+    >
+      <div class="example-box" *ngFor="let item3 of done" cdkDrag>
+        {{ item3 }}
+        <a (click)="remove3(item3)" class="delete" ><mat-icon  matChipRemove
+          >delete_outline</mat-icon
+        ></a>
+      </div>
     </div>
-  </div>
-
-  <br />
-
-  <div
-    cdkDropList
-    #doneList="cdkDropList"
-    [cdkDropListData]="done"
-    [cdkDropListConnectedTo]="[todoList, doingList]"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)"
-  >
-    <div class="example-box" *ngFor="let item of done" cdkDrag>{{ item }}</div>
   </div>
 </div>
