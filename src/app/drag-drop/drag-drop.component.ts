@@ -60,6 +60,8 @@ export class DragDropComponent implements OnInit {
     this.panelOpenState = false;
   }
 
+  
+
   remove1(item1: string): void {
     const index = this.todo.indexOf(item1);
     if (index !== -1) {

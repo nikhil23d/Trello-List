@@ -31,12 +31,12 @@
       [cdkDropListConnectedTo]="[doingList, doneList]"
       class="example-list"
       (cdkDropListDropped)="drop($event)"
-      (click)="closePanel()"
+      (click)="closePanel()"  
     >
-      <div class="example-box" *ngFor="let item1 of todo" cdkDrag>
+      <div class="example-box" contenteditable="true" *ngFor="let item1 of todo" cdkDrag>
         {{ item1 }}
-         <mat-icon class="edit">mode_edit</mat-icon>
-        <mat-icon (click)="remove1(item1)" class="delete" >delete_outline</mat-icon >
+         <!-- <mat-icon  class="edit">mode_edit</mat-icon> --> <span>
+        <mat-icon (click)="remove1(item1)" class="delete" >delete_outline</mat-icon > </span>
       </div>
     </div>
   </div>
@@ -79,7 +79,7 @@
         <a (click)="remove2(item2)" class="delete"  ><mat-icon  matChipRemove
           >delete_outline</mat-icon
         ></a>
-      </div>
+      </div> 
     </div>
   </div>
 
